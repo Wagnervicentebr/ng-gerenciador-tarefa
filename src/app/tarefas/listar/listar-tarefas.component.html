@@ -1,0 +1,47 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Tarefas</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped text-center">
+            <tbody>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-right">
+                        <a [routerLink]="['/tarefas/cadastrar']" class="btn btn-xs btn-success">
+                            <span class="glyphicon glyphicon-plus"></span> 
+                            Novo
+                        </a>
+                    </th>
+                </tr>
+                <tr *ngFor="let tarefa of tarefas" [class.success]="tarefa.concluida">
+                    <td class="col-md-2">{{ tarefa.id }}</td>
+                    <td class="col-md-4" 
+                        [tarefaConcluida]="tarefa.concluida">
+                        {{ tarefa.nome }}
+                    </td>
+                    <td class="col-md-2">{{ tarefa.concluida }}</td>
+                    <td class="col-md-4 text-center">
+                        <a  (click)="alterarStatus(tarefa)" class="btn btn-success btn-space-between"
+                            *ngIf="!tarefa.concluida">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </a>
+                        <a (click)="alterarStatus(tarefa)"  class="btn btn-danger btn-space-between"
+                            *ngIf="tarefa.concluida">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                        <a [routerLink]="['/tarefas/editar', tarefa.id]" class="btn btn-primary btn-space-between">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a (click)="excluirTarefa(tarefa)" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>    
+        </table>
+        <p class="alert alert-danger text-center" *ngIf="tarefas.length == 0">Não há tarefas cadastradas</p>
+    </div>
+</div>

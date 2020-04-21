@@ -1,0 +1,36 @@
+<div class="msg-sucesso row">
+   <span class="alert alert-success col-md-12" *ngIf="tarefaCadastrada">
+        <span class="glyphicon glyphicon-ok"></span>
+        <span>Tarefa cadastrada com sucesso!</span>
+    </span>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Cadastrar nova tarefa</h4>
+    </div>
+    <form #formTarefa="ngForm">
+        <div class="panel-body">
+            <div class="input-tarefa col-md-8 col-md-offset-2 ">
+                <input type="text" class="form-control" placeholder="Titulo tarefa" name="nome" [(ngModel)]="tarefa.nome"
+                    #nome="ngModel" minlength="5" aria-describedby="sizing-addon1" required>
+                <span class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                    <span class="glyphicon glyphicon-asterisk"></span>
+                    <span [hidden]="!nome.errors.required" >Titulo da tarefa Obrigatório.</span>
+                    <span [hidden]="!nome.errors.minlength">Titulo invalido.</span>
+                </span>
+            </div>
+            <div class="btn-group col-md-8 col-md-offset-2">
+                <button type="submit" class="btn btn-info" [routerLink]="['/tarefas']" >
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    Voltar
+                </button>
+                <button class="btn btn-success" 
+                    [disabled]="formTarefa.form.invalid"
+                    (click)="cadastrar()">
+                    <span class="glyphicon glyphicon-saved"></span>
+                    Cadastrar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
